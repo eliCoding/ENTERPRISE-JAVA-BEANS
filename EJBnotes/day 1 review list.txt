@@ -2,7 +2,7 @@ Enterprise Java Beans related terms you need to be able to explain
 what *ARE* they and what they *DO* / what is their *PURPOSE* (both).
 * EJB
 -> Enterprise Java Beans
-=> enterprise bean is a server-side component that encapsulates the business logic of an application. The business logic is the code that fulfills the purpose of the application. for example, the enterprise beans might implement the business logic in methods called checkInventoryLevel and orderProduct. By invoking these methods, clients can access the inventory services provided by the application.
+=> enterprise bean is a server-side component that encapsulates the business logic of an application. The business logic is the code that fulfills the purpose of the application. for example, the enterprise beans might implement the business logic in methods called check Inventory Level and order Product. By invoking these methods, clients can access the inventory services provided by the application.
 -->
 is platform for building portable, reusable, and scalable business applications using the Java
 
@@ -19,16 +19,20 @@ EJB is a framework that provides the following services to applications:
 - Exposing business functionality via web services Business logic Front end (protocol, GUI) Backend (DB)
 
 * J2EE
+J2EE is a platform-independent, Java-centric environment from Sun for developing, building and deploying Web-based enterprise applications online. The J2EE platform consists of a set of services, APIs, and protocols that provide the functionality for developing multitier, Web-based applications.
+ 
 
 * JSP
 Java Server Pages (JSP) is a technology that helps software developers create dynamically generated web pages based on HTML, XML, or other document types
 
 
+
+
 * JSF
-Java Server Pages (JSP) is a technology that helps software developers create dynamically generated web pages based on HTML, XML, or other document types
+Java Server Faces (JSF) is a Java specification for building component-based user interfaces for web applications and was formalized as a standard through the Java Community Process being part of the Java Platform, Enterprise Edition.
 
 * JPA
-The Java Persistence API (JPA) is a Java specification for accessing, persisting, and managing data between Java objects / classes and a relational database. JPAwas defined as part of the EJB 3.0 specification as a replacement for the EJB 2 CMP Entity Beans specification.
+The Java Persistence API (JPA) is a Java specification for accessing, persisting, and managing data between Java objects / classes and a relational database. JPA was defined as part of the EJB 3.0 specification as a replacement for the EJB 2 CMP Entity Beans specification.
 
 
 * DDD
@@ -43,6 +47,8 @@ A deployment descriptor (DD) refers to a configuration file for an artifact that
 
 * Annotation
 In the Java computer programming language, an annotation is a form of syntactic metadata that can be added to Java source code. Classes, methods, variables, parameters and packages may be annotated.
+annotations are used to describe configuration meta-data in EJB classes.
+
 
 * Dependency Injection
 In software engineering, dependency injection is a technique whereby one object supplies the dependencies of another object. A dependency is an object that can be used (a service). An injection is the passing of a dependency to a dependent object (a client) that would use it.
@@ -50,34 +56,32 @@ In software engineering, dependency injection is a technique whereby one object 
 * What are the 4 tiers in EJB
 	The presentation layer is responsible for rendering the graphical user interface (GUI) and handling user input. The presentation layer passes down each request for application functionality to the business logic layer. The business logic layer is the heart of the application and contains workflow and processing logic. It models the distinct actions or processes the application performs. The business logic layer retrieves data from and saves data into the database by utilizing the persistence tier. The persistence layer provides a high-level object-oriented(OO) abstraction over the database layer which typically consists of a relational database management system(RDBMS).
 
-
-
 * Entity Manager / persistence provider
 JPA provides persistence services such as retrieving, adding, modifying, and deleting JPA entities when you explicitly ask for them by invoking Entity Manager API methods.
-
 
 * Persistence
 
 
-
 * Bean
-Beans are business logic components that implement a standard interface through which the bean is hooked into the bean container (= runtime object for bean). ? A Java class implementing one of the standard bean interfaces is a bean. ? Beans can be accessed remotely, usually from a client tier.
+Beans are business logic components that implement a standard interface through which the bean is hooked into the bean container (= runtime object for bean).  A Java class implementing one of the standard bean interfaces is a bean.  Beans can be accessed remotely, usually from a client tier.
 
 
 * Container
 A web container (also known as a servlet container; and compare "webtainer") is the component of a web server that interacts with Java servlets. A web container is responsible for managing the lifecycle of servlets, mapping a URL to a particular servlet and ensuring that the URL requester has the correct access-rights.
 
 * Stateless Session Bean
-A stateless session bean does not maintain a conversational state with the client. When a client invokes the methods of astateless bean, the bean's instance variables may contain a state specific to that client but only for the duration of the invocation.
+A stateless session bean does not maintain a conversational state with the client. When a client invokes the methods of a stateless bean, the bean's instance variables may contain a state specific to that client but only for the duration of the invocation.
+
+
 
 
 * Stateful Session Bean
 A stateful session bean is a type of enterprise bean which preserve the conversational state with client. A stateful session bean as per its name keeps associated client state in its instance variables. EJB Container creates a separate stateful session bean to process client's each request.
 
 * Message Driven Bean
-A message-driven bean is an enterprise bean that allows Java EE applications to process messages asynchronously. This type of bean normally acts as a JMSmessage listener, which is similar to an event listener but receives JMS messagesinstead of events.
+A message-driven bean is an enterprise bean that allows Java EE applications to process messages asynchronously. This type of bean normally acts as a JMS message listener, which is similar to an event listener but receives JMS messages instead of events.
 
-* Signleton Bean
+* Singleton Bean
 Singleton session beans are designed for concurrent access, situations in which many clients need to access a single instance of a session bean at the same time. 
 
 * Lifecycle of Stateless and Stateful session bean
@@ -85,12 +89,15 @@ The Lifecycle of a Stateless Session Bean. Because a stateless session bean is n
 
 
 
-When a client invokes the create() method on an EJBhome of a stateful session bean, its life cyclebegins. When the create() method is received by the container, the container invokes newInstance() on thebean class, creating a new instance of the bean. At this point, the bean instance is assigned to its EJBobject.
+When a client invokes the create () method on an EJB home of a stateful session bean, its life cycle begins. When the create () method is received by the container, the container invokes new Instance () on the bean class, creating a new instance of the bean. At this point, the bean instance is assigned to its EJB object.
 
 
 
 * Java RMI
-RMI is the object oriented equivalent to RPC (Remote procedure call). The Java Remote Method Invocation (RMI) system allows an object running in one JavaVirtual Machine (VM) to invoke methods of an object running in another Java VM.
+RMI is the object oriented equivalent to RPC (Remote procedure call). The Java Remote Method Invocation (RMI) system allows an object running in one Java Virtual Machine (VM) to invoke methods of an object running in another Java VM.
+
+
+
 
 
 
@@ -98,6 +105,8 @@ RMI is the object oriented equivalent to RPC (Remote procedure call). The Java R
 The Java Persistence Query Language (JPQL) is a platform-independent object-oriented query language defined as part of the Java Persistence API (JPA) specification. JPQL is used to make queries against entities stored in a relational database.
 
 * Clustering
+
+
 * Load balancing
 
 * Failover
@@ -114,7 +123,10 @@ A remote client of an enterprise bean has the following traits.
 
 * @Stateful
 
+
 * @Stateless
+
+
 * @EJB
 
 

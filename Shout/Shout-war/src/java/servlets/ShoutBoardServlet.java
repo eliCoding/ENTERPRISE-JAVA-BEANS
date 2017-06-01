@@ -7,6 +7,7 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -22,7 +23,7 @@ public class ShoutBoardServlet extends HttpServlet {
 
     @EJB
     //interface name
-    ShoutBoardEJBRemote shoutone;
+    ShoutBoardEJBRemote shouts;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,14 +46,16 @@ public class ShoutBoardServlet extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>shout board</h1>");
-            out.println("<form>");
+            out.println("<form method='post'>");
             out.println("Enter Your shout please:<input type='text'> ");
-            out.println(" <input type=\"submit\" value =\"shout\">");
+            out.println(" <input type=\"submit\" value =\"shout\"><br>");
             out.println("</form>");
 
             if (request.getMethod().toLowerCase().equals("post")) {
                 String shout = request.getParameter("shout");
-                out.println("the shout is:" + shoutone.getAllShouts());
+                shouts.addshout(shout);
+
+                out.println("Shouts Are:" + shout + "  " + shouts.getAllShouts());
             }
 
             out.println("</body>");
