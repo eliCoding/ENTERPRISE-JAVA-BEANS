@@ -23,7 +23,7 @@ public class ShoutBoardServlet extends HttpServlet {
 
     @EJB
     //interface name
-    ShoutBoardEJBRemote shouts;
+    ShoutBoardEJBRemote shoutService;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,6 +38,7 @@ public class ShoutBoardServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            try{
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -47,19 +48,30 @@ public class ShoutBoardServlet extends HttpServlet {
             out.println("<body>");
             out.println("<h1>shout board</h1>");
             out.println("<form method='post'>");
-            out.println("Enter Your shout please:<input type='text'> ");
+            out.println("Enter Your shout please:<input type='text' name='shout'> ");
             out.println(" <input type=\"submit\" value =\"shout\"><br>");
             out.println("</form>");
 
             if (request.getMethod().toLowerCase().equals("post")) {
                 String shout = request.getParameter("shout");
-                shouts.addshout(shout);
+                if (!shout.isEmpty()) {
+                    shoutService.addshout(shout);
 
-                out.println("Shouts Are:" + shout + "  " + shouts.getAllShouts());
+                }
             }
+            out.println("<ul>");
+            String[] shoutArray = shoutService.getAllShouts();
+            for(String s  : shoutArray) {
+              out.printf("<li>%s</li>\n",s);
+            }
+            out.println("</ul>");
+          
 
             out.println("</body>");
             out.println("</html>");
+            }catch(Exception e) {
+              out.printf("<div>Exception %s:%s</div>",e,e.getMessage());
+            }
         }
     }
 

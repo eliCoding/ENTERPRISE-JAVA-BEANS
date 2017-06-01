@@ -27,11 +27,13 @@ public class MainWindow extends javax.swing.JFrame {
      */
     public MainWindow() {
         try {
+            
             Properties props = new Properties();
 // props.load(new FileInputStream("jndi.properties"));
             props.setProperty("java.naming.factory.initial", "com.sun.enterprise.naming.SerialInitContextFactory");
+           // it is  aconnection to the container
             InitialContext ctx = new InitialContext(props);
-            //interdace name
+            //interdace name                // do you have a bean that implmenets that interface                                     
             shoutService = (ShoutBoardEJBRemote) ctx.lookup(ShoutBoardEJBRemote.class.getName()); //"shout.ejb.ShoutServiceRemote"); 
 
             initComponents();
@@ -118,6 +120,9 @@ public class MainWindow extends javax.swing.JFrame {
     private void btShoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btShoutActionPerformed
         try {
             String shout = tfShout.getText();
+            //this calls the automatix generated proxy class 
+            //add shout makes the call happen in the container o the server
+            //shout service is the proxy class that calls the container to tell the bean  
             shoutService.addshout(shout);
             tfShout.setText("");
             refreshShouts();
