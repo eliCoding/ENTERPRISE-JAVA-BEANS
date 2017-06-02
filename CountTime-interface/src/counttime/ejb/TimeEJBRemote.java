@@ -5,6 +5,7 @@
  */
 package counttime.ejb;
 
+import java.util.Date;
 import javax.ejb.Remote;
 
 /**
@@ -12,10 +13,7 @@ import javax.ejb.Remote;
  * @author ipd
  */
 @Remote
-public interface CounterEJBRemote {
-
-    public void registerVisit(); // increments counter of visits
-
-    public int getTotalVisitCount();
+public interface TimeEJBRemote {
+    public Date getCurrentDateTime();
     
 }

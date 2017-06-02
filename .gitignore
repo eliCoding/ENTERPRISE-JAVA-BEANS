@@ -42,3 +42,11 @@
 /CountTime/CountTime-ejb/nbproject/private/
 /CountTime-GUI/nbproject/private/
 /CountTime-interface/nbproject/private/
+/CountTime/CountTime-ejb/build/
+/CountTime-interface/dist/
+/CountTime-interface/build/
+/CountTime/CountTime-ejb/dist/
+/CountTime/build/
+/CountTime/CountTime-war/dist/
+/CountTime-GUI/build/
+/CountTime-GUI/dist/
