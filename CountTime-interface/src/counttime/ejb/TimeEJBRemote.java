@@ -5,6 +5,7 @@
  */
 package counttime.ejb;
 
+import java.util.Date;
 import javax.ejb.Remote;
 
 /**
@@ -12,10 +13,8 @@ import javax.ejb.Remote;
  * @author Elmira
  */
 @Remote
-public interface CounterEJBRemote {
+public interface TimeEJBRemote {
+    public Date getCurrentDateTime(); // returns java.util.Date object with current time of the server
 
-    public void registerVisit(); // increments counter of visits
-
-    public int getTotalVisitCount(); // returns current value of counter
-
+    
 }
