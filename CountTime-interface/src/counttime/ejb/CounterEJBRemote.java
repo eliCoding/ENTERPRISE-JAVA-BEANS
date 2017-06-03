@@ -16,6 +16,11 @@ public interface CounterEJBRemote {
 
     public void registerVisit(); // increments counter of visits
 
+<<<<<<< HEAD
     public int getTotalVisitCount(); // returns current value of counter
 
+=======
+    public int getTotalVisitCount();
+    
+>>>>>>> 8f2e914507943b0337fa845d9a723657a014df52
 }

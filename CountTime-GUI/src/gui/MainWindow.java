@@ -5,17 +5,48 @@
  */
 package gui;
 
+import counttime.ejb.CounterEJBRemote;
+import counttime.ejb.TimeEJBRemote;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Properties;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author ipd
  */
 public class MainWindow extends javax.swing.JFrame {
 
+    CounterEJBRemote counterService;
+    TimeEJBRemote timeService;
+
     /**
      * Creates new form MainWindow
      */
     public MainWindow() {
-        initComponents();
+        try {
+
+            Properties props = new Properties();
+// props.load(new FileInputStream("jndi.properties"));
+            props.setProperty("java.naming.factory.initial", "com.sun.enterprise.naming.SerialInitContextFactory");
+            // it is  aconnection to the container
+            InitialContext ctx = new InitialContext(props);
+            //interface name                // do you have a bean that implmenets that interface                                     
+            counterService = (CounterEJBRemote) ctx.lookup(CounterEJBRemote.class.getName()); //"shout.ejb.ShoutServiceRemote"); 
+            timeService = (TimeEJBRemote) ctx.lookup(TimeEJBRemote.class.getName()); //"shout.ejb.ShoutServiceRemote"); 
+
+            initComponents();
+
+        } catch (NamingException ex) {
+// ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error connectiong to Glassfish");
+            throw new RuntimeException("Error connecting to Glassfish", ex);
+        }
+
     }
 
     /**
@@ -27,21 +58,58 @@ public class MainWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btRefresh = new javax.swing.JButton();
+        lbResult = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        btRefresh.setText("Refresh");
+        btRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btRefreshActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbResult, javax.swing.GroupLayout.PREFERRED_SIZE, 472, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btRefresh))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btRefresh)
+                .addGap(18, 18, 18)
+                .addComponent(lbResult, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRefreshActionPerformed
+        try {
+            int count = counterService.getTotalVisitCount();
+            Date date = timeService.getCurrentDateTime();
+
+            System.out.println("This page has been visited" + count + "times");
+
+            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            System.out.println("The Current time is:" + dateFormat.format(date) + "");
+            lbResult.setText("this page has been visited " + count + " times " + "the Current time is:" + dateFormat.format(date) + "");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error Addin shout:" + e.getMessage());
+        }
+    }//GEN-LAST:event_btRefreshActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +147,7 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btRefresh;
+    private javax.swing.JLabel lbResult;
     // End of variables declaration//GEN-END:variables
 }

@@ -2,11 +2,7 @@
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
         <servlet-name>TellTimeServlet</servlet-name>
-<<<<<<< HEAD
-        <servlet-class>TellTimeServlet</servlet-class>
-=======
         <servlet-class>counttime.servlets.TellTimeServlet</servlet-class>
->>>>>>> 8f2e914507943b0337fa845d9a723657a014df52
     </servlet>
     <servlet-mapping>
         <servlet-name>TellTimeServlet</servlet-name>
