@@ -44,6 +44,13 @@
 /CountTime-interface/nbproject/private/
 /CountTime/CountTime-ejb/build/
 /CountTime-interface/dist/
+<<<<<<< HEAD
+/CountTime/build/
+/CountTime-interface/build/
+/CountTime/CountTime-ejb/dist/
+/CountTime/CountTime-war/build/
+/CountTime/CountTime-war/dist/
+=======
 /CountTime-interface/build/
 /CountTime/CountTime-ejb/dist/
 /CountTime/build/
@@ -55,6 +62,7 @@
 /Todo/Todo-ejb/nbproject/private/
 /Todo-interface/nbproject/private/
 /Todo-GUI/nbproject/private/
+<<<<<<< HEAD
 /Todo-interface/build/
 /Todo/build/
 /Todo-interface/dist/
@@ -64,3 +72,6 @@
 /Todo/Todo-war/build/
 /Todo-GUI/build/
 /Todo-GUI/dist/
+=======
+>>>>>>> 8f2e914507943b0337fa845d9a723657a014df52
+>>>>>>> 2e51c231356ffd2611781f91f02dda1e4686fb22

@@ -129,4 +129,21 @@ A remote client of an enterprise bean has the following traits.
 
 * @EJB
 
+* @ConcurrencyManagement(CONTAINER)
+* @AccessTimeout(value=120000)
+* @Lock(WRITE)
+* @Lock(READ)
+
+
+Other questions:
+* What does InitialContext ctx = new InitialContext(props); do?
+* What does ctx.lookup("beans.RestaurantRemote") call do?
+- asks container whether it has a bean implementing "beans.RestaurantRemote" interface,
+- defines and instantiates a proxy class to communicate with container and instance of "beans.RestaurantRemote" bean inside of it
+* Why do we need the "proxy class"?
+
+* Draw lifecycles of stateful and stateless beans including state transitions and exact names of annotations in EJB3.
+
+
+
 
