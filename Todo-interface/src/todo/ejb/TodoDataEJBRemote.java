@@ -6,6 +6,7 @@
 package todo.ejb;
 
 import javax.ejb.Remote;
+import todo.entities.TodoItem;
 
 /**
  *
@@ -13,5 +14,9 @@ import javax.ejb.Remote;
  */
 @Remote
 public interface TodoDataEJBRemote {
-    
+
+    public TodoItem[] getAllTodoItems();
+
+    public void addTodoItem(TodoItem item);
+
 }

@@ -5,85 +5,91 @@
  */
 package todo.entities;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author ipd
  */
-public class TodoItem {
+public class TodoItem implements Serializable{
 
-    private static int Id = 1;
+    private static final long serialVersionUID = 1L;
+
+    private static int count = 1;
+
+    public TodoItem() {
+    }
 
     public TodoItem(String Task, Date DueDate, boolean IsDone) {
+        id = ++count;
         setDueDate(DueDate);
         setTask(Task);
 
         setIsDone(IsDone);
     }
-
-    private String Task;
-    private Date DueDate;
-    private boolean IsDone;
+    private int id;
+    private String task;
+    private Date dueDate;
+    private boolean isDone;
 
     /**
-     * @return the Id
+     * @return the id
      */
-    public static int getId() {
-        Id++;
-        return Id;
+    public int getId() {
+        id = ++count;
+        return id;
     }
 
     /**
-     * @return the Task
+     * @return the task
      */
     public String getTask() {
-        return Task;
+        return task;
     }
 
     /**
-     * @param Task the Task to set
+     * @param Task the task to set
      */
-    public void setTask(String Task) {
-        if (this.Task.isEmpty()) {
+    public final void setTask(String task) {
+        if (task.isEmpty()) {
             throw new IllegalArgumentException("Task description must not be emtpy");
         }
-        this.Task = Task;
+        this.task = task;
     }
 
     /**
-     * @return the DueDate
+     * @return the dueDate
      */
     public Date getDueDate() {
-        return DueDate;
+        return dueDate;
     }
 
     /**
-     * @param DueDate the DueDate to set
+     * @param DueDate the dueDate to set
      */
-    public void setDueDate(Date DueDate) {
-        this.DueDate = DueDate;
+    public final void setDueDate(Date DueDate) {
+        this.dueDate = DueDate;
     }
 
     /**
-     * @return the IsDone
+     * @return the isDone
      */
     public boolean isIsDone() {
-        return IsDone;
+        return isDone;
     }
 
     /**
-     * @param IsDone the IsDone to set
+     * @param IsDone the isDone to set
      */
-    public void setIsDone(boolean IsDone) {
-        this.IsDone = IsDone;
+    public final void setIsDone(boolean IsDone) {
+        this.isDone = IsDone;
     }
-}
 
-   /* public TodoItem[] getAllTodoItems(){
+    @Override
+    public String toString() {
+      return  String.format("%d: %s due %s is %s",getId(),getTask(),getDueDate(),isIsDone() ? "done" : "pending");
+    }
+     
     
-    }
-
-    public void addTodoItem(TodoItem item);
-
-}*/
+}

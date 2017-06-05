@@ -55,3 +55,12 @@
 /Todo/Todo-ejb/nbproject/private/
 /Todo-interface/nbproject/private/
 /Todo-GUI/nbproject/private/
+/Todo-interface/build/
+/Todo/build/
+/Todo-interface/dist/
+/Todo/Todo-war/dist/
+/Todo/Todo-ejb/dist/
+/Todo/dist/
+/Todo/Todo-war/build/
+/Todo-GUI/build/
+/Todo-GUI/dist/

@@ -3,14 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package shout.gui;
+package gui;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Properties;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
-import shoutboard.ejb.ShoutBoardEJBRemote;
+import todo.ejb.TodoDataEJBRemote;
+import todo.entities.TodoItem;
 
 /**
  *
@@ -18,32 +21,46 @@ import shoutboard.ejb.ShoutBoardEJBRemote;
  */
 public class MainWindow extends javax.swing.JFrame {
 
-    DefaultListModel<String> shoutListModel = new DefaultListModel<>();
+    private DefaultListModel<TodoItem> todoListModel = new DefaultListModel<>();
+
     //interface
-    ShoutBoardEJBRemote shoutService;
+    TodoDataEJBRemote todoService;
 
     /**
      * Creates new form MainWindow
      */
     public MainWindow() {
         try {
-            
+
             Properties props = new Properties();
 // props.load(new FileInputStream("jndi.properties"));
             props.setProperty("java.naming.factory.initial", "com.sun.enterprise.naming.SerialInitContextFactory");
-           // it is  aconnection to the container
+            // it is  aconnection to the container
             InitialContext ctx = new InitialContext(props);
             //interdace name                // do you have a bean that implmenets that interface                                     
-            shoutService = (ShoutBoardEJBRemote) ctx.lookup(ShoutBoardEJBRemote.class.getName()); //"shout.ejb.ShoutServiceRemote"); 
+            todoService = (TodoDataEJBRemote) ctx.lookup(TodoDataEJBRemote.class.getName());
 
             initComponents();
-            refreshShouts();
+            refreshTodoList();
         } catch (NamingException ex) {
 // ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error connectiong to Glassfish");
             throw new RuntimeException("Error connecting to Glassfish", ex);
         }
+    }
 
+    private void refreshTodoList() {
+        try {
+            TodoItem[] itemList = todoService.getAllTodoItems();
+            todoListModel.clear();
+            for (TodoItem item : itemList) {
+                todoListModel.addElement(item);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Exception  occured: " + e.getMessage());
+
+        }
     }
 
     /**
@@ -55,96 +72,86 @@ public class MainWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lbShout = new javax.swing.JLabel();
-        btShout = new javax.swing.JButton();
-        tfShout = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        lstShouts = new javax.swing.JList<>();
+        lstTodos = new javax.swing.JList<>();
+        jLabel1 = new javax.swing.JLabel();
+        tftask = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        tfDueDate = new javax.swing.JTextField();
+        btAddTodo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        lbShout.setText("Enter Shout:");
+        lstTodos.setModel(todoListModel);
+        jScrollPane1.setViewportView(lstTodos);
 
-        btShout.setText("Shout!");
-        btShout.addActionListener(new java.awt.event.ActionListener() {
+        jLabel1.setText("Task");
+
+        jLabel2.setText("DueDate (YYY-MM-DD)");
+
+        btAddTodo.setText("Add Todo");
+        btAddTodo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btShoutActionPerformed(evt);
+                btAddTodoActionPerformed(evt);
             }
         });
-
-        tfShout.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfShoutActionPerformed(evt);
-            }
-        });
-
-        lstShouts.setModel(shoutListModel);
-        jScrollPane1.setViewportView(lstShouts);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lbShout)
-                        .addGap(18, 18, 18)
-                        .addComponent(tfShout)
-                        .addGap(18, 18, 18)
-                        .addComponent(btShout))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 597, Short.MAX_VALUE))
-                .addGap(27, 27, 27))
+                        .addGap(26, 26, 26)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addGap(26, 26, 26)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tftask, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
+                            .addComponent(tfDueDate)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btAddTodo, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbShout)
-                    .addComponent(btShout)
-                    .addComponent(tfShout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(tftask, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(tfDueDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(55, 55, 55)
+                        .addComponent(btAddTodo))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tfShoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfShoutActionPerformed
-    
-
-    }//GEN-LAST:event_tfShoutActionPerformed
-
-    private void btShoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btShoutActionPerformed
+    private void btAddTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddTodoActionPerformed
         try {
-            String shout = tfShout.getText();
-            //this calls the automatix generated proxy class 
-            //add shout makes the call happen in the container o the server
-            //shout service is the proxy class that calls the container to tell the bean  
-            shoutService.addshout(shout);
-            tfShout.setText("");
-            refreshShouts();
+            String task = tftask.getText();
+            String dueDateStr = tfDueDate.getText();
+            Date dueDate = new SimpleDateFormat("yyyy-MM-dd").parse(dueDateStr);
+            
+
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error Addin shout:" + e.getMessage());
         }
-    }//GEN-LAST:event_btShoutActionPerformed
-    private void refreshShouts() {
-        try {
-            String[] shoutArray = shoutService.getAllShouts();
-            shoutListModel.clear();
-            for (String s : shoutArray) {
-                shoutListModel.addElement(s);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error Addin shout:" + e.getMessage());
-        }
-    }
+    }//GEN-LAST:event_btAddTodoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -182,10 +189,12 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btShout;
+    private javax.swing.JButton btAddTodo;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lbShout;
-    private javax.swing.JList<String> lstShouts;
-    private javax.swing.JTextField tfShout;
+    private javax.swing.JList<TodoItem> lstTodos;
+    private javax.swing.JTextField tfDueDate;
+    private javax.swing.JTextField tftask;
     // End of variables declaration//GEN-END:variables
 }
