@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <servlet>
+        <servlet-name>TravelListServlet</servlet-name>
+        <servlet-class>quiz.servlets.TravelListServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddTravelServlet</servlet-name>
+        <servlet-class>quiz.servlets.AddTravelServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>WhoIsTravellingServlet</servlet-name>
+        <servlet-class>quiz.servlets.WhoIsTravellingServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TravelListServlet</servlet-name>
+        <url-pattern>/list</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddTravelServlet</servlet-name>
+        <url-pattern>/add</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>WhoIsTravellingServlet</servlet-name>
+        <url-pattern>/whois</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+</web-app>
