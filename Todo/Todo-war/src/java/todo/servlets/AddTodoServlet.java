@@ -63,7 +63,7 @@ public class AddTodoServlet extends HttpServlet {
                     Date dueDate = new SimpleDateFormat("yyyy-MM-dd").parse(dueDateStr);
                     TodoItem item = new TodoItem(task, dueDate, false);
                     todoService.addTodoItem(item);
-                    out.println("<p>item Added succeccfully</p>");
+                    out.println("<p>item Added succeccfully</p><a href='list'/> Todo List");
                 }
                 
                 out.println("</body>");

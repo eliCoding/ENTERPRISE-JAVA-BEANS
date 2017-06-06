@@ -48,29 +48,22 @@ public class TodoListServlet extends HttpServlet {
                 out.println("<title>Servlet TodoListServlet</title>");
                 out.println("</head>");
                 out.println("<body>");
-                out.println("<h1>Servlet TodoListServlet at " + request.getContextPath() + "</h1>");
+                out.println("<h1> " + request.getContextPath() + "</h1>");
 
                 TodoItem[] itemList = todoService.getAllTodoItems();
-               out.println(" <table border=\"1\">"); 
-       out.println("<tr><th>id</th><th>Task</th><th>DueDate</th><th>Is Done</th></tr>");   
+                out.println(" <table border=\"1\">");
+                out.println("<tr><th>id</th><th>Task</th><th>DueDate</th><th>Is Done</th></tr>");
                 for (TodoItem item : itemList) {
-                    out.printf("<p>%d : %s by %s is %s</p>\n", item.getId(),
-                            item.getTask(), item.getDueDate(), item.isIsDone());
+                    /* out.printf("<p>%d : %s by %s is %s</p>\n", item.getId(),
+                            item.getTask(), item.getDueDate(), item.isIsDone());*/
+                    out.println("<tr><td>"+item.getId()+ "</td>" );
+                    out.printf("<td> %s </td>" ,item.getTask());
+                    out.printf("<td>%s </td>" , item.getDueDate());
+                    out.printf("<td>%s </td><tr>" , item.isIsDone());
 
                 }
-                  out.println("</table>");
-                /* <table border="1">
-        <tr><th>id</th><th>name</th><th>description</th><th>image</th><th>operations</th></tr>
-        {% for p in productList %}
-            <tr><td>{{p.id}}</td>
-                <td>{{p.name}}</td>
-                <td>{{p.description}}</td>
-                <td><img src="/{{p.imagePath}}" width="40"></td>
-                <td><a href="/admin/product/edit/{{p.id}}">edit</a>
-                    <a href="/admin/product/delete/{{p.id}}">delete</a>
-                </td></tr>
-        {% endfor %}
-    </table>*/
+                out.println("</table>");
+               
 
                 out.println("</body>");
                 out.println("</html>");

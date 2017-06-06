@@ -145,7 +145,9 @@ public class MainWindow extends javax.swing.JFrame {
             String task = tftask.getText();
             String dueDateStr = tfDueDate.getText();
             Date dueDate = new SimpleDateFormat("yyyy-MM-dd").parse(dueDateStr);
-            
+            TodoItem item = new TodoItem(task, dueDate, false);
+            todoService.addTodoItem(item);
+            refreshTodoList();
 
         } catch (Exception e) {
             e.printStackTrace();

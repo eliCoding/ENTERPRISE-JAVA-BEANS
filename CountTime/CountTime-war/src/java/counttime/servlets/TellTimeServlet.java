@@ -9,8 +9,6 @@ import counttime.ejb.CounterEJBRemote;
 import counttime.ejb.TimeEJBRemote;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -25,12 +23,11 @@ import javax.servlet.http.HttpServletResponse;
 public class TellTimeServlet extends HttpServlet {
 
     @EJB
-    //interface name
-    TimeEJBRemote timeService;
-
-    @EJB
     CounterEJBRemote counterService;
-
+    
+    @EJB
+    TimeEJBRemote timeService;
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -44,25 +41,23 @@ public class TellTimeServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            //
+            
             counterService.registerVisit();
-
+            
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TellTimeServlet</title>");
+            out.println("<title>Servlet TellTimeServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-           // out.println("<h1>Servlet TellTimeServlet at " + request.getContextPath() + "</h1>");
-           
+            out.println("<h1>Servlet TellTimeServlet at " + request.getContextPath() + "</h1>");
+            
             int count = counterService.getTotalVisitCount();
             Date date = timeService.getCurrentDateTime();
-
-            out.println("<p>this page has been visited</p>"+count + "<p>times</p>");
-            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-            out.println("<p>the Current time is:"+dateFormat.format(date)+"</p>");
-
+            
+            out.printf("<p>Total vists %d and current time %s</p>\n", count, date);
+            
             out.println("</body>");
             out.println("</html>");
         }
