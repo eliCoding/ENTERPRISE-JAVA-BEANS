@@ -49,14 +49,17 @@ public class TravelDataEJB implements TravelDataEJBRemote {
         travelList.add(item);
     }
 
- 
     @Lock(READ)
     @Override
     public String[] whoIsTravellingOnDate(Date date) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-       // System.out.println(" TravelDataEJB.whoIsTravellingOnDate()");
-       
-      //  return 
+        ArrayList<String> nameList = new ArrayList<>();
+        System.out.println("TravelDateEJB.whoIsTravellingOnDate()");
+        for (Travel t : travelList) {
+            if ((date.compareTo(t.getDepartDate()) >= 0) && (date.compareTo(t.getReturnDate()) < 0)) {
+                nameList.add(t.toString());
+            }
+        }
+        return nameList.toArray(new String[0]);
     }
 
 }

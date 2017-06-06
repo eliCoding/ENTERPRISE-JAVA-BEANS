@@ -38,64 +38,34 @@ public class WhoIsTravellingServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             try {
                 /* TODO output your page here. You may use following sample code. */
                 out.println("<!DOCTYPE html>");
                 out.println("<html>");
                 out.println("<head>");
-                out.println("<title>Servlet WhoIsTravellingServlet</title>");
+                out.println("<title>Servlet TravelListServlet</title>");
                 out.println("</head>");
                 out.println("<body>");
-                /*
-                out.println("<h1>Servlet WhoIsTravellingServlet at " + request.getContextPath() + "</h1>");
-                out.println("</body>");
+                out.println("<h2>Who is traveling?</h2>");
                 if (request.getMethod().toLowerCase().equals("get")) {
-                    out.println("<form method='post'>");
-
-                    out.println("Date<input type='date' name='date' ><br>");
-                    out.println("<input type='submit' value='Search' ><br>");
-                    out.println("</form >");
+                    out.println("<form method=\"POST\">");
+                    out.println("Date: <input type=\"date\" name=\"travelDate\" ><br>");
+                    out.println("<input type=\"submit\" value=\"Who is Traveling\"><br>");
+                    out.println("</form>");
                 } else {
-                    Travel[] travelList = travelService.getAllTravels();
-                    for (Travel t : travelList) {
-
-                        out.println(t.getFullName());
-
+                    String travelDateStr = request.getParameter("travelDate");
+                    Date travelDate = new SimpleDateFormat("yyyy-MM-dd").parse(travelDateStr); 
+                    for (String str : travelService.whoIsTravellingOnDate(travelDate)) {
+                        out.println(str);
                     }
-                    out.println("<p>Travelling on   date</p><a href='list'/> Travel List");
                 }
-
+                out.println("</body>");
                 out.println("</html>");
             } catch (Exception e) {
                 e.printStackTrace();
-                out.println("Excetion ");
-            }*/
-                out.println("<h1>Search who is Traveling?</h1>");
-                out.println("<form method='post'>");
-                out.println("Enter Your Date please:<input type='date' name='date'> ");
-                out.println(" <input type=\"submit\" value =\"search\"><br>");
-                out.println("</form>");
-
-                if (request.getMethod().toLowerCase().equals("post")) {
-                    String date = request.getParameter("date");
-
-                }
-                out.println("<ul>");
-
-                //    Travel[] travelList = travelService.whoIsTravellingOnDate(date);
-                Travel[] travelList = travelService.getAllTravels();
-
-                for (Travel t : travelList) {
-                    out.printf("<li>%s</li>\n", t);
-                }
-                out.println("</ul>");
-
-                out.println("</body>");
-                out.println("</html>");
-            } catch (Exception e) {
-                out.printf("<div>Exception %s:%s</div>", e, e.getMessage());
+                out.println("Exception occured: " + e.getMessage());
             }
         }
     }

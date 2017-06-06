@@ -73,7 +73,7 @@ public class MainWindow extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        tfSearch = new javax.swing.JTextField();
+        tfDate = new javax.swing.JTextField();
         btWhoIsTraveling = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         lstTravels = new javax.swing.JList<>();
@@ -126,7 +126,7 @@ public class MainWindow extends javax.swing.JFrame {
                         .addGap(22, 22, 22)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(tfDate, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -157,7 +157,7 @@ public class MainWindow extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(tfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btWhoIsTraveling))
                 .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -206,6 +206,18 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAddTravelActionPerformed
 
     private void btWhoIsTravelingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btWhoIsTravelingActionPerformed
+        travelListModel.removeAllElements();
+        try {
+            String travelDateStr = tfDate.getText();
+            Date travelDate = new SimpleDateFormat("yyyy-MM-dd").parse(travelDateStr);
+            for (String str : travelService.whoIsTravellingOnDate(travelDate)) {
+               // travelListModel.addElement(str);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error in todoService" + e.getMessage());
+        }// TODO add your handling code here:
+        //GEN-LAST:event_btWhoisActionPerformed
 
     }//GEN-LAST:event_btWhoIsTravelingActionPerformed
 
@@ -254,10 +266,10 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList<Travel> lstTravels;
+    private javax.swing.JTextField tfDate;
     private javax.swing.JTextField tfDeparture;
     private javax.swing.JTextField tfDestination;
     private javax.swing.JTextField tfFullName;
     private javax.swing.JTextField tfReturn;
-    private javax.swing.JTextField tfSearch;
     // End of variables declaration//GEN-END:variables
 }
